@@ -1,4 +1,4 @@
-This repo test federated learning algorithms on unbalanced dataset and uses FedAvg as updating strategy for now.
+This repo test federated learning algorithms on unbalanced dataset (sampled from MNIST and cifar10), which uses FedAvg as updating strategy for now.
 
 
 This repo provides different ways of sampling original dataset of MNIST and CIFAR10
