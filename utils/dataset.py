@@ -11,12 +11,11 @@ import numpy as np
 import pickle
 
 
-"""
-PARAMETERS
-transform: transforms include extra data augmentation, basic transforms like normalize and totensor is already implemented
-"""
 class FLDataset(Dataset):
-    
+    """
+    create a cumtomized dataset
+    :param transform: transforms include extra data augmentation, basic transforms like normalize and totensor is already implemented
+    """
     def __init__(self, path, dataset, train, num_classes, transform = None, target_transform=None):
         super(FLDataset, self).__init__()
 
@@ -26,10 +25,9 @@ class FLDataset(Dataset):
         self.labels = []
         self.mean = None
         self.std = None
-        
+
         self.num_classes = num_classes
 
-        self.path = path
         self.train = train
 
         if dataset == "MNIST":
@@ -57,7 +55,10 @@ class FLDataset(Dataset):
         for i in range(len(self.images)):
             self.index_per_class[int(self.labels[i])].append(i)
             self.num_per_class[self.labels[i]] += 1
-        min_num = min(self.num_per_class)
+        #  MNIST is imbalanced and we set the number of each category to be
+        #  the minimum number of data in 10 categories
+        min_num = min(self.num_per_class)  #5421 for MNIST training set
+
         for i in range(self.num_classes):
             self.index_per_class[i] = self.index_per_class[i][:min_num]
         # prepare transform for images and labels
@@ -65,7 +66,7 @@ class FLDataset(Dataset):
         if transform == None:
             if self.mean == None:
                 self.mean, self.std = computeMeanStd(self.images)
-            # print(self.mean, self.std)
+
             self.transform = transforms.Compose([
                 transforms.Normalize(mean = self.mean, std = self.std),
             ])
@@ -108,9 +109,10 @@ if __name__ == "__main__":
 
     dataset = FLDataset(path="/mnt/traffic/leijiachen/data",
               dataset = "MNIST",
-              train = True,
+              train = False,
               num_classes = 10,
               )
-    print(dataset[1][0])
-    img = transforms.ToPILImage()(dataset[0][0])
-    img.save("output.png")
+    print(dataset.num_per_class)
+    # print(dataset[1][0])
+    # img = transforms.ToPILImage()(dataset[0][0])
+    # img.save("output.png")

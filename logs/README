@@ -1,0 +1,8 @@
+0406:
+MNIST:
+    equal number of images per category and random number of images on each device
+        0406-equal-random_num1
+        0406-equal-random_num2
+        mnist_gaussian_equal_num1
+    
+    

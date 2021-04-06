@@ -69,7 +69,7 @@ def main():
             "std" : args.std, 
             "inr" : args.sample_inr
             }
-    print([len(index_per_class[i]) for i in range(10)])
+    logger.info(f"total number of images in each category:{[len(index_per_class[i]) for i in range(10)]}")
     sampled_indexes, sampled_per_class = UnbanlancedSample(
         index_per_class = index_per_class,
         frac = args.frac,
