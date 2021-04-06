@@ -1,0 +1,28 @@
+This repo provides different ways of sampling original dataset of MNIST and CIFAR10
+You can use:
+(1) gaussian sampling
+(2) long tail sampling
+(3) random sampling: randomly sample images
+(4) customized sampling: provide your own version of weights for sampling each category
+(5) equal sampling: equal number of images in each category
+
+by spcifying argument --mode (gaussian, tail, random, equal, fixed_gaussian, fixed_sharp_gaussian, fixed_tail)
+
+
+and to split the sampled dataset into client number of datasets, you should specify argument by:
+--split_mode (random, equal_num, equal_per_class)
+
+(1) random: randomly split sampled dataset
+(2) equal_num: equally split sampled dataset to ensure equal number of dataset on every client device
+(3) equal_per_class: equally split each category in sampled dataset to ensure equal number of each class on every client device
+
+
+To train a model:
+python train.py --name "your model's name e.g. 0406_random_random1" --mode "your mode" --split_mode "your split_mode" --dataset (MNIST,cifar10) --epochs "epochs"
+
+parameters of model will be saved in the directory ./checkpoints, make sure to create it
+
+To test a model:
+python test.py --name "name of model requires testing"
+you can specify dataset which by default is MNIST
+
