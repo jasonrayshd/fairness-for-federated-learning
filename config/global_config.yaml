@@ -1,0 +1,11 @@
+# static setting for learning
+epochs: 10
+num_users: 100
+frac: 0.1
+local_ep: 5
+local_bs: 10
+batch_size: 128
+lr: 0.01
+momentum: 0.5
+dataset: "MNIST"
+num_classes: 10
